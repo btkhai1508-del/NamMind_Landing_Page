@@ -18,6 +18,9 @@ import { Footer } from './components/Footer';
 import { RegisterModal } from './components/RegisterModal';
 import { ThankYouPage } from './components/ThankYouPage';
 import { AffiliateModelSection } from './components/AffiliateModelSection';
+import { WhyAttendSection } from './components/WhyAttendSection';
+import { TruthWakeupSection } from './components/TruthWakeupSection';
+import { ChallengeBenefitsSection } from './components/ChallengeBenefitsSection';
 
 export default function App() {
   const [showKitModal, setShowKitModal] = useState(false);
@@ -80,6 +83,15 @@ export default function App() {
 
           {/* Section trắng mới: Một mô hình Affiliate MỚI cho người không cần biết công nghệ! */}
           <AffiliateModelSection onCtaClick={openRegisterModal} />
+
+          {/* Section mới: Tại sao bạn KHÔNG THỂ bỏ lỡ thử thách này */}
+          <WhyAttendSection onCtaClick={openRegisterModal} />
+
+          {/* Section thức tỉnh: Bạn à... có một sự thật không ai chịu nói */}
+          <TruthWakeupSection onCtaClick={openRegisterModal} />
+
+          {/* Section trắng mới: Thử thách 2 ngày Affiliate sẽ giúp bạn (Căn giữa) */}
+          <ChallengeBenefitsSection onCtaClick={openRegisterModal} />
 
           {/* Services Block (Section Title 1) */}
           <Services />

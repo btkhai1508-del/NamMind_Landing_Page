@@ -25,7 +25,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ onCtaClick }) => {
               <div className="flex items-center gap-4 sm:gap-5 pb-6 mb-6 border-b border-white/15 w-full">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#B9FF66] shrink-0 bg-neutral-900 shadow-md">
                   <img
-                    src="/assets/aistudio/namanh_portrait_cropped.png"
+                    src="/assets/aistudio/namanh_portrait_nobg.png?v=20261022_final"
                     alt="Nam Anh"
                     className="w-full h-full object-cover object-top"
                   />

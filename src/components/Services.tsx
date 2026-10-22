@@ -1,101 +1,57 @@
 import React from 'react';
 import { SectionHeading } from './SectionHeading';
-import { ArrowUpRightIcon } from './PositivusIcons';
-import {
-  SeoIllustration,
-  PpcIllustration,
-  SocialIllustration,
-  EmailIllustration,
-  ContentIllustration,
-  AnalyticsIllustration,
-} from './PositivusIllustrations';
 
 interface ServiceCardData {
   id: number;
-  badge1: string;
-  badge2: string;
+  badge: string;
   bg: string;
   badgeBg: string;
   textColor: string;
-  arrowBg: string;
-  arrowColor: string;
-  linkTextColor: string;
-  illustration: React.ReactNode;
 }
 
 export const Services: React.FC = () => {
   const cards: ServiceCardData[] = [
     {
       id: 1,
-      badge1: 'Subtitle 1',
-      badge2: 'Subtitle 2',
+      badge: 'Subtitle 1',
       bg: '#F3F3F3',
       badgeBg: '#B9FF66',
       textColor: '#000000',
-      arrowBg: '#191A23',
-      arrowColor: '#B9FF66',
-      linkTextColor: '#000000',
-      illustration: <SeoIllustration />,
     },
     {
       id: 2,
-      badge1: 'Subtitle 3',
-      badge2: 'Subtitle 4',
+      badge: 'Subtitle 3',
       bg: '#B9FF66',
       badgeBg: '#FFFFFF',
       textColor: '#000000',
-      arrowBg: '#191A23',
-      arrowColor: '#B9FF66',
-      linkTextColor: '#000000',
-      illustration: <PpcIllustration />,
     },
     {
       id: 3,
-      badge1: 'Subtitle 5',
-      badge2: 'Subtitle 6',
+      badge: 'Subtitle 5',
       bg: '#191A23',
       badgeBg: '#FFFFFF',
       textColor: '#000000',
-      arrowBg: '#FFFFFF',
-      arrowColor: '#000000',
-      linkTextColor: '#FFFFFF',
-      illustration: <SocialIllustration />,
     },
     {
       id: 4,
-      badge1: 'Subtitle 7',
-      badge2: 'Subtitle 8',
+      badge: 'Subtitle 7',
       bg: '#F3F3F3',
       badgeBg: '#B9FF66',
       textColor: '#000000',
-      arrowBg: '#191A23',
-      arrowColor: '#B9FF66',
-      linkTextColor: '#000000',
-      illustration: <EmailIllustration />,
     },
     {
       id: 5,
-      badge1: 'Subtitle 9',
-      badge2: 'Subtitle 10',
+      badge: 'Subtitle 9',
       bg: '#B9FF66',
       badgeBg: '#FFFFFF',
       textColor: '#000000',
-      arrowBg: '#191A23',
-      arrowColor: '#B9FF66',
-      linkTextColor: '#000000',
-      illustration: <ContentIllustration />,
     },
     {
       id: 6,
-      badge1: 'Subtitle 11',
-      badge2: 'Subtitle 12',
+      badge: 'Subtitle 11',
       bg: '#191A23',
       badgeBg: '#B9FF66',
       textColor: '#000000',
-      arrowBg: '#FFFFFF',
-      arrowColor: '#000000',
-      linkTextColor: '#FFFFFF',
-      illustration: <AnalyticsIllustration />,
     },
   ];
 
@@ -108,54 +64,40 @@ export const Services: React.FC = () => {
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
         />
 
-        {/* Cards Grid: 2 columns on desktop, 1 on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        {/* Cards Grid: 6 cards chia làm 2 bên, tỉ lệ 9:16, khung ảnh fit bự hơn với spacing gọn gàng */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-7 items-start">
           {cards.map((card) => (
             <div
               key={card.id}
               style={{ backgroundColor: card.bg }}
-              className="group border border-[#191A23] rounded-[45px] p-8 sm:p-12 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 min-h-[310px] positivus-shadow hover:-translate-y-1 transition-all duration-200"
+              className="group border-2 border-[#191A23] rounded-[36px] sm:rounded-[48px] p-7 sm:p-10 lg:p-12 flex flex-col justify-between items-stretch aspect-[9/16] w-full positivus-shadow hover:-translate-y-1.5 transition-all duration-200"
             >
-              {/* Left Column: Dual Badges and Link */}
-              <div className="flex flex-col justify-between h-full gap-8 sm:gap-16">
-                {/* Heading Badges (h3) */}
-                <div className="flex flex-col items-start gap-1">
-                  <span
-                    style={{ backgroundColor: card.badgeBg, color: card.textColor }}
-                    className="inline-block px-[7px] py-0 rounded-[7px] font-['Space_Grotesk'] font-medium text-[24px] sm:text-[30px] leading-[34px] sm:leading-[38px]"
-                  >
-                    {card.badge1}
-                  </span>
-                  <span
-                    style={{ backgroundColor: card.badgeBg, color: card.textColor }}
-                    className="inline-block px-[7px] py-0 rounded-[7px] font-['Space_Grotesk'] font-medium text-[24px] sm:text-[30px] leading-[34px] sm:leading-[38px]"
-                  >
-                    {card.badge2}
-                  </span>
-                </div>
-
-                {/* Learn More link with round arrow button */}
-                <a
-                  href="#contact"
-                  className="flex items-center gap-4 group/link cursor-pointer"
-                  aria-label="Learn more about this service"
+              {/* Phần trên: Chỉ giữ lại 1 Subtitle lẻ (Subtitle 1, 3, 5, 7, 9, 11) */}
+              <div className="flex items-start shrink-0">
+                <span
+                  style={{ backgroundColor: card.badgeBg, color: card.textColor }}
+                  className="inline-block px-4 py-1.5 rounded-[10px] font-['Space_Grotesk'] font-bold text-[22px] sm:text-[28px] lg:text-[30px] leading-tight border border-[#191A23]/25 shadow-sm"
                 >
-                  <ArrowUpRightIcon
-                    circleBg={card.arrowBg}
-                    arrowColor={card.arrowColor}
-                  />
-                  <span
-                    style={{ color: card.linkTextColor }}
-                    className="font-['Space_Grotesk'] font-normal text-[18px] sm:text-[20px] leading-[28px] group-hover/link:underline"
-                  >
-                    Learn More
-                  </span>
-                </a>
+                  {card.badge}
+                </span>
               </div>
 
-              {/* Right Column: Custom Illustration */}
-              <div className="self-center sm:self-auto shrink-0 flex items-center justify-center">
-                {card.illustration}
+              {/* Phần thân: Khung ảnh để trống tỉ lệ 9:16 mở rộng tối đa, sẵn sàng chèn ảnh sau */}
+              <div className="flex-1 my-6 sm:my-8 rounded-[28px] sm:rounded-[36px] border-2 border-dashed border-[#191A23]/35 flex flex-col items-center justify-center p-6 sm:p-10 text-center transition-all bg-white/45 hover:bg-white/65">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white border-2 border-[#191A23]/20 flex items-center justify-center mb-4 shadow-md group-hover:scale-105 transition-transform">
+                  {/* Icon Image Placeholder */}
+                  <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#191A23]/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" strokeWidth="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5" strokeWidth="2"/>
+                    <polyline points="21 15 16 10 5 21" strokeWidth="2"/>
+                  </svg>
+                </div>
+                <span className="font-['Space_Grotesk'] font-bold text-[17px] sm:text-[20px] text-[#191A23]/90">
+                  Vị trí chèn ảnh (Tỉ lệ 9:16)
+                </span>
+                <span className="font-['Space_Grotesk'] text-[13px] sm:text-[15px] text-[#191A23]/65 mt-1.5 max-w-[280px]">
+                  Để trống sẵn sàng cho hình ảnh kết quả / minh họa
+                </span>
               </div>
             </div>
           ))}

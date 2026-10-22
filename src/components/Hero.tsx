@@ -8,7 +8,7 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
   return (
     <section className="w-full pt-4 pb-8 sm:pt-8 sm:pb-14 overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-12">
+        <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start justify-between gap-8 lg:gap-8 xl:gap-10">
           {/* Left Text Block */}
           <div className="w-full lg:max-w-[560px] flex flex-col items-start gap-6 sm:gap-7">
             {/* Title */}
@@ -40,13 +40,13 @@ export const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
             </button>
           </div>
 
-          {/* Right Image: Căn đầu ngang bằng top của title tới bottom của nút CTA */}
-          <div className="w-full lg:w-1/2 flex justify-center lg:justify-end shrink-0 relative self-stretch">
+          {/* Right Image: Căn đầu ngang bằng top của title tới bottom của nút CTA, đặt vị trí giữa vừa phải, thoáng mắt */}
+          <div className="w-full lg:w-1/2 flex justify-center lg:justify-center shrink-0 relative self-stretch">
             <div className="relative w-full max-w-[360px] sm:max-w-[410px] lg:max-w-[460px] h-full flex items-center justify-center">
-              {/* Chân dung Nam Anh cắt từ rốn trở lên, khớp chiều cao với khối văn bản & nút bên trái */}
+              {/* Chân dung Nam Anh mới đã loại bỏ background 100% trong suốt */}
               <div className="relative w-full h-full flex items-start justify-center">
                 <img
-                  src="/assets/aistudio/namanh_portrait_cropped.png"
+                  src="/assets/aistudio/namanh_portrait_nobg.png?v=20261022_final"
                   alt="Chân dung Nam Anh - Thử thách Affiliate"
                   className="w-full h-full object-contain object-top drop-shadow-[0_20px_35px_rgba(0,0,0,0.18)] select-none pointer-events-none"
                 />
