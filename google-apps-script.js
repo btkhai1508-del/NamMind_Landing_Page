@@ -1,17 +1,3 @@
-/**
- * GOOGLE APPS SCRIPT CHO GOOGLE SHEET NAMIND
- * ID Sheet: 1IcQhIf8LJuszyWZBvNyVDPqKNJNeMYBq8hS3Q7gpFLQ
- * 
- * Hướng dẫn:
- * 1. Mở Google Sheet -> Tiện ích mở rộng (Extensions) -> Apps Script
- * 2. Xóa hết code cũ, dán toàn bộ file này vào
- * 3. Bấm Triển khai (Deploy) -> Tùy chọn triển khai mới (New deployment)
- * 4. Chọn loại: "Ứng dụng web" (Web app)
- * 5. Thực thi dưới dạng: "Tôi" (email của bạn)
- * 6. Ai có quyền truy cập: "Bất kỳ ai" (Anyone)
- * 7. Bấm Triển khai và copy URL dán lại vào web
- */
-
 const SPREADSHEET_ID = "1IcQhIf8LJuszyWZBvNyVDPqKNJNeMYBq8hS3Q7gpFLQ";
 const ZALO_LINK = "https://zalo.me/g/a2y2x036pqkwzig7u9ri";
 
@@ -26,40 +12,36 @@ function doPost(e) {
     let customerPhone = "";
     let customerEmail = "";
 
-    // Đọc dữ liệu từ form website gửi lên (JSON hoặc Form Post)
-    if (e && e.postData && e.postData.contents) {
+    // 1. Đọc dữ liệu từ form website (Hỗ trợ cả URLSearchParams và JSON)
+    if (e && e.parameter && (e.parameter.name || e.parameter.email || e.parameter.phone)) {
+      customerName = e.parameter.name || "";
+      customerPhone = e.parameter.phone || "";
+      customerEmail = e.parameter.email || "";
+    } else if (e && e.postData && e.postData.contents) {
       try {
         const body = JSON.parse(e.postData.contents);
         customerName = body.name || "";
         customerPhone = body.phone || "";
         customerEmail = body.email || "";
       } catch (err) {
-        if (e.parameter) {
-          customerName = e.parameter.name || "";
-          customerPhone = e.parameter.phone || "";
-          customerEmail = e.parameter.email || "";
-        }
+        // fallback
       }
-    } else if (e && e.parameter) {
-      customerName = e.parameter.name || "";
-      customerPhone = e.parameter.phone || "";
-      customerEmail = e.parameter.email || "";
     }
 
-    customerName = (customerName || "Bạn").trim();
-    customerPhone = (customerPhone || "").trim();
-    customerEmail = (customerEmail || "").trim();
+    customerName = customerName.trim();
+    customerPhone = customerPhone.trim();
+    customerEmail = customerEmail.trim();
 
     const timestamp = new Date().toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" });
 
-    // 1. Lưu chính xác thông tin người dùng vừa nhập vào Google Sheet
+    // 2. Lưu chính xác họ tên, SĐT, email vào Google Sheet
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = ss.getActiveSheet();
     sheet.appendRow([timestamp, customerName, customerPhone, customerEmail]);
 
-    // 2. Gửi email xác nhận kèm link nhóm Zalo ĐẾN CHÍNH EMAIL NGƯỜI ĐÓ VỪA NHẬP
+    // 3. Gửi email xác nhận kèm link Zalo trực tiếp đến email người đăng ký
     if (customerEmail && customerEmail.indexOf("@") !== -1) {
-      sendWelcomeEmail(customerName, customerEmail);
+      sendWelcomeEmail(customerName || "Bạn", customerEmail);
     }
 
     return ContentService.createTextOutput(JSON.stringify({
@@ -97,10 +79,10 @@ function sendWelcomeEmail(name, toEmail) {
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #F8F9FA; padding: 40px 15px;">
       <tr>
         <td align="center">
-          <!-- Main Card: Sạch sẽ, không viền ngoài thô, chuẩn Figma Positivus -->
+          <!-- Main Container: Không viền ngoài thô, nền trắng sạch sẽ, chuẩn Figma -->
           <table role="presentation" width="100%" style="max-width: 580px; background-color: #FFFFFF; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
             
-            <!-- Header Brand Bar -->
+            <!-- Header Brand -->
             <tr>
               <td style="background-color: #191A23; padding: 22px 30px;">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
@@ -116,7 +98,7 @@ function sendWelcomeEmail(name, toEmail) {
               </td>
             </tr>
 
-            <!-- Body Content -->
+            <!-- Content Area -->
             <tr>
               <td style="padding: 36px 30px 28px 30px;">
                 <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; line-height: 34px; color: #191A23; margin: 0 0 18px 0; text-transform: uppercase;">
@@ -131,7 +113,7 @@ function sendWelcomeEmail(name, toEmail) {
                   Thông tin giữ chỗ của bạn đã được hệ thống ghi nhận thành công. Vì đây là chương trình trực tiếp và có phần cầm tay chỉ việc, <strong>toàn bộ tài liệu, link phòng Zoom và thông báo quan trọng sẽ được cập nhật độc quyền trong Nhóm Zalo Kín</strong>.
                 </p>
 
-                <!-- Box Hướng dẫn: Bo góc mềm, viền đứt thanh lịch -->
+                <!-- Box Hướng dẫn -->
                 <table role="presentation" width="100%" style="background-color: #F8F9FA; border: 1px dashed #CBD5E1; border-radius: 16px; margin: 0 0 28px 0;">
                   <tr>
                     <td style="padding: 18px 20px;">
