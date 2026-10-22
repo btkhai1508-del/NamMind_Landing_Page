@@ -24,18 +24,19 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
     setIsSubmitting(true);
 
     try {
-      // Gửi dữ liệu vào Google Sheet & kích hoạt gửi email tự động
+      // Gửi dữ liệu theo chuẩn URLSearchParams (Form Data) để Google Apps Script nhận 100% không bị CORS hay null
+      const formData = new URLSearchParams();
+      formData.append('name', name.trim());
+      formData.append('phone', phone.trim());
+      formData.append('email', email.trim());
+
       await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
         },
-        body: JSON.stringify({
-          name: name.trim(),
-          phone: phone.trim(),
-          email: email.trim(),
-        }),
+        body: formData.toString(),
       });
     } catch (err) {
       console.error('Lỗi gửi form:', err);
