@@ -6,26 +6,51 @@ interface RegisterModalProps {
   onSuccess?: () => void;
 }
 
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBSUB_UKWpZdeJXmNEk-Xjq1CN10bykbJTb_mhFa9dH_Nu6OqIzM9hFJAq2MH772xoBA/exec';
+
 export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, onSuccess }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name && !phone && !email) return;
-    setIsSuccess(true);
-    setTimeout(() => {
-      setIsSuccess(false);
-      setName('');
-      setPhone('');
-      setEmail('');
-      onClose();
-      onSuccess?.();
-    }, 600);
+
+    setIsSubmitting(true);
+
+    try {
+      // Gửi dữ liệu vào Google Sheet & kích hoạt gửi email tự động
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: phone.trim(),
+          email: email.trim(),
+        }),
+      });
+    } catch (err) {
+      console.error('Lỗi gửi form:', err);
+    } finally {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        setName('');
+        setPhone('');
+        setEmail('');
+        onClose();
+        onSuccess?.();
+      }, 700);
+    }
   };
 
   return (
@@ -108,9 +133,10 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, o
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full h-[58px] sm:h-[62px] bg-[#191A23] text-white font-['Space_Grotesk'] font-bold text-[17px] sm:text-[19px] rounded-[16px] hover:bg-[#B9FF66] hover:text-[#191A23] transition-all duration-200 cursor-pointer shadow-md hover:shadow-xl uppercase tracking-wider border border-[#191A23] flex items-center justify-center mt-1"
+            disabled={isSubmitting}
+            className="w-full h-[58px] sm:h-[62px] bg-[#191A23] text-white font-['Space_Grotesk'] font-bold text-[17px] sm:text-[19px] rounded-[16px] hover:bg-[#B9FF66] hover:text-[#191A23] transition-all duration-200 cursor-pointer shadow-md hover:shadow-xl uppercase tracking-wider border border-[#191A23] flex items-center justify-center mt-1 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            GỬI VÉ MIỄN PHÍ CHO TÔI
+            {isSubmitting ? 'ĐANG XỬ LÝ...' : 'GỬI VÉ MIỄN PHÍ CHO TÔI'}
           </button>
 
           {/* Faint grey text */}
