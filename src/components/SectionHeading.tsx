@@ -6,6 +6,7 @@ interface SectionHeadingProps {
   className?: string;
   maxWidthDesc?: string;
   titleClassName?: string;
+  descClassName?: string;
 }
 
 export const SectionHeading: React.FC<SectionHeadingProps> = ({
@@ -14,6 +15,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   className = '',
   maxWidthDesc = 'max-w-[580px]',
   titleClassName = '',
+  descClassName = '',
 }) => {
   return (
     <div className={`flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-10 mb-10 md:mb-16 ${className}`}>
@@ -25,7 +27,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
       </div>
       {/* Subheading explanation */}
       {description && (
-        <p className={`font-['Space_Grotesk'] font-normal text-[16px] sm:text-[18px] leading-[23px] text-black ${maxWidthDesc}`}>
+        <p className={`font-['Space_Grotesk'] ${descClassName || 'font-normal text-[16px] sm:text-[18px] leading-[23px] text-black'} ${maxWidthDesc}`}>
           {description}
         </p>
       )}

@@ -11,7 +11,6 @@ import { Services } from './components/Services';
 import { CtaBanner } from './components/CtaBanner';
 import { CaseStudies } from './components/CaseStudies';
 import { WorkingProcess } from './components/WorkingProcess';
-import { Team } from './components/Team';
 import { Testimonials } from './components/Testimonials';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
@@ -21,6 +20,12 @@ import { AffiliateModelSection } from './components/AffiliateModelSection';
 import { WhyAttendSection } from './components/WhyAttendSection';
 import { TruthWakeupSection } from './components/TruthWakeupSection';
 import { ChallengeBenefitsSection } from './components/ChallengeBenefitsSection';
+import { DayOneCurriculum } from './components/DayOneCurriculum';
+import { ExpectationComparisonSection } from './components/ExpectationComparisonSection';
+import { TrainerSection } from './components/TrainerSection';
+import { UrgencyWarningSection } from './components/UrgencyWarningSection';
+import { ValueStackSection } from './components/ValueStackSection';
+import { HesitationSection } from './components/HesitationSection';
 
 export default function App() {
   const [showKitModal, setShowKitModal] = useState(false);
@@ -96,11 +101,26 @@ export default function App() {
           {/* Services Block (Section Title 1) */}
           <Services />
 
-          {/* Working Process (01-06 Interactive Accordions) */}
-          <WorkingProcess />
+          {/* Lộ trình Ngày 1 */}
+          <DayOneCurriculum onCtaClick={openRegisterModal} />
 
-          {/* Team Section (6 Cards with Flower Avatar Masks) */}
-          <Team onSeeAllClick={openRegisterModal} />
+          {/* Working Process (01-08 Interactive Accordions - Quà tặng khổng lồ + chốt 7 suất quà) */}
+          <WorkingProcess onCtaClick={openRegisterModal} />
+
+          {/* Section so sánh TRƯỚC vs SAU Thử thách 2 ngày (theo Hình ảnh 1) */}
+          <ExpectationComparisonSection onCtaClick={openRegisterModal} />
+
+          {/* Section Người huấn luyện trong 2 ngày: Nam Anh */}
+          <TrainerSection onCtaClick={openRegisterModal} />
+
+          {/* Section Bạn càng chờ càng mất thêm tiền mặt... (theo Hình ảnh 2) */}
+          <UrgencyWarningSection onCtaClick={openRegisterModal} />
+
+          {/* Section mới: ĐÂY LÀ TẤT CẢ BẠN NHẬN ĐƯỢC (Tổng kết 8 quà tặng & Thử thách) */}
+          <ValueStackSection onCtaClick={openRegisterModal} />
+
+          {/* Section mới: Bạn có thể còn đang lưỡng lự... (theo layout ảnh) */}
+          <HesitationSection onCtaClick={openRegisterModal} />
 
           {/* Contact Us Form with Radio Options & Illustration */}
           <ContactSection />
